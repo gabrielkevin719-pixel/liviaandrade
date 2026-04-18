@@ -1,5 +1,5 @@
 "use client"
-// Bia Miranda Privacy Page
+// Livia Andrade Privacy Page
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 
@@ -1245,12 +1245,12 @@ Para de fingir que é curioso`}
                 <header className="feed-header">
                   <Image className="feed-avatar" src="/images/profile.jpg" width={28} height={28} alt="Avatar" unoptimized />
                   <div className="feed-head-text">
-                    <div className="feed-name">Bia Miranda</div>
-                    <div className="feed-handle">@Biamirandapessoal</div>
+                    <div className="feed-name">Livia Andrade</div>
+                    <div className="feed-handle">@liviaandradereal</div>
                   </div>
                 </header>
                 <div className="feed-media">
-                  <Image className="locked-media" src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-04-17%20at%2001.21.15-kMkjPBx9nInnc0eSj0N6X2Q2EcJ3Jt.jpeg" width={400} height={711} alt="Previa" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', filter: 'blur(8px)' }} unoptimized />
+                  <Image className="locked-media" src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/liviaandradereal_post_30_12_2025_18_05_313799273604354507395-R9DoCDtXK0Gp1hqsUVSV3RtbuJIc5s.jpg" width={400} height={711} alt="Previa" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', filter: 'blur(8px)' }} unoptimized />
                   <div className="lock-bubble">🔒</div>
                   <div className="stats-pill">
                     <span>245K</span>
