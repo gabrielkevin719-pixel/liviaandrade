@@ -1096,9 +1096,11 @@ export default function PrivacyPage() {
             <div className="profile-bio">
               <div className="bio-container">
                 <p className={`bio-text ${!bioExpanded ? 'collapsed' : ''}`}>
-                  {`A pimenta que você não consegue parar de provar… 🌶️
-Conteúdos exclusivos, sem censura e sem limites 😈
-Se você chegou até aqui, já sabe o que quer… só falta clicar 👇`}
+                  {`Conteúdos exclusivos… sem filtro, sem censura e sem freio.
+Aqui não tem "programinha de domingo"…
+É só o que ninguém tem coragem de te mostrar 😈
+Se você chegou até aqui…
+Para de fingir que é curioso`}
                 </p>
                 <button className="bio-toggle" onClick={() => setBioExpanded(!bioExpanded)}>
                   {bioExpanded ? 'Mostrar menos' : 'Ler mais'}
