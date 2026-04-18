@@ -1181,14 +1181,14 @@ Para de fingir que é curioso`}
                 <header className="feed-header">
                   <Image className="feed-avatar" src="/images/profile.jpg" width={28} height={28} alt="Avatar" unoptimized />
                   <div className="feed-head-text">
-                    <div className="feed-name">Bia Miranda</div>
-                    <div className="feed-handle">@Biamirandapessoal</div>
+                    <div className="feed-name">Livia Andrade</div>
+                    <div className="feed-handle">@liviaandradereal</div>
                   </div>
                 </header>
                 <div className="feed-media">
                   <video 
                     className="locked-media" 
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/yURvKUye_720p-cSRLGMvym4G5IozY89vqmulPhxzlyu.mp4"
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/L%C3%ADvia%20Andrade%20%281%29-b7biKuBFI1cmhz7igwlBuCfni93o2b.mp4"
                     autoPlay
                     loop
                     muted
@@ -1213,14 +1213,14 @@ Para de fingir que é curioso`}
                 <header className="feed-header">
                   <Image className="feed-avatar" src="/images/profile.jpg" width={28} height={28} alt="Avatar" unoptimized />
                   <div className="feed-head-text">
-                    <div className="feed-name">Bia Miranda</div>
-                    <div className="feed-handle">@Biamirandapessoal</div>
+                    <div className="feed-name">Livia Andrade</div>
+                    <div className="feed-handle">@liviaandradereal</div>
                   </div>
                 </header>
                 <div className="feed-media">
                   <video 
                     className="locked-media" 
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Video%202026-04-17%20at%2011.03.25-EXg70Z0UiQ7wTuJws7JoeO8EzP5BDN.mp4" 
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/L%C3%ADvia%20Andrade%20%282%29-mzVnMjA9df2xu1UfPT8T2UXHjK8mLf.mp4" 
                     autoPlay 
                     loop 
                     muted
