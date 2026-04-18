@@ -1,5 +1,5 @@
 "use client"
-// Bia Miranda Privacy Page
+// Livia Andrade Privacy Page
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 
@@ -1072,7 +1072,7 @@ export default function PrivacyPage() {
                   <div className="profile-header-row">
                     <div>
                       <div className="profile-name">
-                        Bia Miranda
+                        Livia Andrade
                         <span className="verified">
                           <svg aria-label="Verificado" fill="#f97316" height="16" role="img" viewBox="0 0 40 40" width="16" xmlns="http://www.w3.org/2000/svg">
                             <title>Verificado</title>
@@ -1080,7 +1080,7 @@ export default function PrivacyPage() {
                           </svg>
                         </span>
                       </div>
-                      <div className="profile-username">@Biamirandapessoal</div>
+                      <div className="profile-username">@liviaandradereal</div>
                     </div>
                     <div className="stats">
                       <span><svg className="stat-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg> 81</span>
@@ -1096,9 +1096,11 @@ export default function PrivacyPage() {
             <div className="profile-bio">
               <div className="bio-container">
                 <p className={`bio-text ${!bioExpanded ? 'collapsed' : ''}`}>
-                  {`A pimenta que você não consegue parar de provar… 🌶️
-Conteúdos exclusivos, sem censura e sem limites 😈
-Se você chegou até aqui, já sabe o que quer… só falta clicar 👇`}
+                  {`Conteúdos exclusivos… sem filtro, sem censura e sem freio.
+Aqui não tem "programinha de domingo"…
+É só o que ninguém tem coragem de te mostrar 😈
+Se você chegou até aqui…
+Para de fingir que é curioso`}
                 </p>
                 <button className="bio-toggle" onClick={() => setBioExpanded(!bioExpanded)}>
                   {bioExpanded ? 'Mostrar menos' : 'Ler mais'}
@@ -1179,14 +1181,14 @@ Se você chegou até aqui, já sabe o que quer… só falta clicar 👇`}
                 <header className="feed-header">
                   <Image className="feed-avatar" src="/images/profile.jpg" width={28} height={28} alt="Avatar" unoptimized />
                   <div className="feed-head-text">
-                    <div className="feed-name">Bia Miranda</div>
-                    <div className="feed-handle">@Biamirandapessoal</div>
+                    <div className="feed-name">Livia Andrade</div>
+                    <div className="feed-handle">@liviaandradereal</div>
                   </div>
                 </header>
                 <div className="feed-media">
                   <video 
                     className="locked-media" 
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/yURvKUye_720p-cSRLGMvym4G5IozY89vqmulPhxzlyu.mp4"
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/L%C3%ADvia%20Andrade%20%281%29-b7biKuBFI1cmhz7igwlBuCfni93o2b.mp4"
                     autoPlay
                     loop
                     muted
@@ -1211,14 +1213,14 @@ Se você chegou até aqui, já sabe o que quer… só falta clicar 👇`}
                 <header className="feed-header">
                   <Image className="feed-avatar" src="/images/profile.jpg" width={28} height={28} alt="Avatar" unoptimized />
                   <div className="feed-head-text">
-                    <div className="feed-name">Bia Miranda</div>
-                    <div className="feed-handle">@Biamirandapessoal</div>
+                    <div className="feed-name">Livia Andrade</div>
+                    <div className="feed-handle">@liviaandradereal</div>
                   </div>
                 </header>
                 <div className="feed-media">
                   <video 
                     className="locked-media" 
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Video%202026-04-17%20at%2011.03.25-EXg70Z0UiQ7wTuJws7JoeO8EzP5BDN.mp4" 
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/L%C3%ADvia%20Andrade%20%282%29-mzVnMjA9df2xu1UfPT8T2UXHjK8mLf.mp4" 
                     autoPlay 
                     loop 
                     muted
@@ -1243,12 +1245,12 @@ Se você chegou até aqui, já sabe o que quer… só falta clicar 👇`}
                 <header className="feed-header">
                   <Image className="feed-avatar" src="/images/profile.jpg" width={28} height={28} alt="Avatar" unoptimized />
                   <div className="feed-head-text">
-                    <div className="feed-name">Bia Miranda</div>
-                    <div className="feed-handle">@Biamirandapessoal</div>
+                    <div className="feed-name">Livia Andrade</div>
+                    <div className="feed-handle">@liviaandradereal</div>
                   </div>
                 </header>
                 <div className="feed-media">
-                  <Image className="locked-media" src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-04-17%20at%2001.21.15-kMkjPBx9nInnc0eSj0N6X2Q2EcJ3Jt.jpeg" width={400} height={711} alt="Previa" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', filter: 'blur(8px)' }} unoptimized />
+                  <Image className="locked-media" src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/liviaandradereal_post_30_12_2025_18_05_313799273604354507395-R9DoCDtXK0Gp1hqsUVSV3RtbuJIc5s.jpg" width={400} height={711} alt="Previa" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', filter: 'blur(8px)' }} unoptimized />
                   <div className="lock-bubble">🔒</div>
                   <div className="stats-pill">
                     <span>245K</span>
