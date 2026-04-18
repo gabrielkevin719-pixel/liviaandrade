@@ -1,13 +1,52 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const HOOPAY_API_URL = 'https://api.pay.hoopay.com.br'
-const CLIENT_ID = '9065a7048f688d93b268c26a8fc05f1f'
-const CLIENT_SECRET = '3398965cf073c04c35326536fefbfcb0c67878baf1cccb12eed2e4e6c67568e9'
+const SYNCPAY_API_URL = 'https://api.syncpayments.com.br'
+const CLIENT_ID = '2226426b-4177-4459-9d8e-06f245202191'
+const CLIENT_SECRET = '0e2d04f3-413f-4089-a8c8-17f1b03deb32'
+
+// Cache do token para evitar gerar novo a cada requisicao
+let cachedToken: { token: string; expiresAt: number } | null = null
+
+// Funcao para obter o token de autenticacao
+async function getAuthToken(): Promise<string> {
+  // Verifica se o token em cache ainda e valido (com margem de 5 minutos)
+  if (cachedToken && cachedToken.expiresAt > Date.now() + 5 * 60 * 1000) {
+    return cachedToken.token
+  }
+
+  const response = await fetch(`${SYNCPAY_API_URL}/api/partner/v1/auth-token`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      client_id: CLIENT_ID,
+      client_secret: CLIENT_SECRET
+    })
+  })
+
+  if (!response.ok) {
+    const errorText = await response.text()
+    console.error('[SyncPay Auth Error]', errorText)
+    throw new Error('Falha ao autenticar com SyncPay')
+  }
+
+  const data = await response.json()
+  
+  // Armazena o token em cache
+  cachedToken = {
+    token: data.access_token,
+    expiresAt: Date.now() + (data.expires_in * 1000)
+  }
+
+  return data.access_token
+}
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { amount, plan, name, email, cpf, phone } = body
+    const { amount, name, email, cpf, phone } = body
 
     // Validacoes basicas
     if (!amount) {
@@ -23,72 +62,36 @@ export async function POST(request: NextRequest) {
 
     // Normaliza o valor (substitui virgula por ponto se necessario)
     const amountNormalized = String(amount).replace(',', '.')
-    // Valor em reais (HooPay espera valor em reais, nao em centavos)
     const amountValue = parseFloat(amountNormalized)
 
-    // Cria o header de autenticacao Basic Auth
-    const credentials = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64')
+    // Obtem o token de autenticacao
+    const authToken = await getAuthToken()
 
-    // Obtem o IP do cliente
-    const forwardedFor = request.headers.get('x-forwarded-for')
-    const realIp = request.headers.get('x-real-ip')
-    let clientIp = '177.0.0.1'
-    
-    if (forwardedFor) {
-      const firstIp = forwardedFor.split(',')[0].trim()
-      if (/^(\d{1,3}\.){3}\d{1,3}$/.test(firstIp)) {
-        clientIp = firstIp
-      }
-    } else if (realIp && /^(\d{1,3}\.){3}\d{1,3}$/.test(realIp)) {
-      clientIp = realIp
-    }
+    // URL do webhook para receber notificacoes
+    const webhookUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://liviaandrade.vercel.app'}/api/webhook/syncpay`
 
-    // Monta o payload para a API do HooPay conforme formato testado e funcionando
-    const hoopayPayload = {
+    // Monta o payload para a API do SyncPay
+    const syncPayPayload = {
       amount: amountValue,
-      customer: {
-        email: email || 'cliente@email.com',
+      description: 'Conteudo Exclusivo - Privacy',
+      webhook_url: webhookUrl,
+      client: {
         name: name || 'Cliente',
-        phone: phoneClean,
-        document: cpfClean
-      },
-      address: {
-        zipcode: '01310-100',
-        street: 'Avenida Paulista',
-        streetNumber: '1000',
-        neighborhood: 'Bela Vista',
-        complement: 'Apto 1',
-        city: 'Sao Paulo',
-        state: 'SP'
-      },
-      products: [
-        {
-          title: 'PIX',
-          amount: amountValue,
-          quantity: 1
-        }
-      ],
-      payments: [
-        {
-          type: 'pix',
-          amount: amountValue
-        }
-      ],
-      data: {
-        ip: clientIp,
-        callbackURL: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://keviing7s.vercel.app'}/api/webhook/hoopay`
+        cpf: cpfClean,
+        email: email || 'cliente@email.com',
+        phone: phoneClean
       }
     }
 
     // Faz a requisicao para gerar o PIX
-    const response = await fetch(`${HOOPAY_API_URL}/charge`, {
+    const response = await fetch(`${SYNCPAY_API_URL}/api/partner/v1/cash-in`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': `Basic ${credentials}`
+        'Authorization': `Bearer ${authToken}`
       },
-      body: JSON.stringify(hoopayPayload)
+      body: JSON.stringify(syncPayPayload)
     })
 
     const responseText = await response.text()
@@ -113,26 +116,25 @@ export async function POST(request: NextRequest) {
 
     if (!response.ok) {
       const errorMsg = data.message || data.error || 'Erro ao gerar PIX'
+      console.error('[SyncPay Error]', data)
       return NextResponse.json(
         { error: errorMsg },
         { status: response.status }
       )
     }
 
-    // Extrai os dados do PIX da resposta conforme documentacao HooPay
-    const pixCharge = data.payment?.charges?.find((c: { type: string }) => c.type === 'pix' || c.type === 'PIX')
-    const pixPayload = pixCharge?.pixPayload // Codigo copia e cola
-    const pixQrCode = pixCharge?.pixQrCode // Imagem QR Code em base64
-    const pixIdentifier = pixCharge?.uuid || data.payment?.charges?.[0]?.uuid
+    // Extrai os dados do PIX da resposta do SyncPay
+    const pixCode = data.pix_code
+    const identifier = data.identifier
 
     // Retorna os dados do PIX gerado
     return NextResponse.json({
       success: true,
-      pix_code: pixPayload,
-      pix_qrcode: pixQrCode,
-      identifier: pixIdentifier,
-      amount: amount,
-      status: data.payment?.status || 'pending',
+      pix_code: pixCode,
+      pix_qrcode: null, // SyncPay retorna o codigo PIX que serve como copia/cola e QR
+      identifier: identifier,
+      amount: amountValue,
+      status: 'pending',
       message: 'PIX gerado com sucesso!'
     })
 
